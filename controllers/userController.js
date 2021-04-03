@@ -6,15 +6,11 @@ exports.create = (req, res) => { /* Se crea la promesa que se encargara de regis
     code: req.body.code,
     userName: req.body.userName,
     email: req.body.email,
-    role: req.body.role
+   
   })
-  const id = req.body.role;
 
-  Role.findById(id) /* Comprobacion de que el id ingresado este previamente registrado en los Roles */
-    .then(data => {
-      if (!data) /* Si el role no existe  */
-        res.status(404).send({ message: "Not found Role with id " + id });
-      else nUser.save().then( /* si existe el role entonces registramos */
+
+   nUser.save().then( /* si existe el role entonces registramos */
         data => {
           res.send(data) /* Nos devuelve como respuesta los datos almacenados */
         }
@@ -24,9 +20,7 @@ exports.create = (req, res) => { /* Se crea la promesa que se encargara de regis
             message: error.message + ' Error to create the user'
           })
         }
-      )
-    })
-    .catch(err => { /* Si hay un error de servidor */
+      ).catch(err => { /* Si hay un error de servidor */
       res
         .status(500)
         .send({ message: "Error retrieving Role with id=" + id });
